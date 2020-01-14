@@ -4,6 +4,7 @@ import com.phz.dateselectordemo.R
 import com.phz.dateselectordemo.util.DateSelector
 import com.phz.dateselectordemo.util.TimeUtil
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 
 class MainActivity : BaseActivity() {
     var StartTime = "1949-1-1 00:00:00"
@@ -33,24 +34,24 @@ class MainActivity : BaseActivity() {
     }
 
     override fun initData() {
-        dateSelectorStart=DateSelector(this,object :DateSelector.Companion.ResultHandler{
-            override fun handle(time: String) {
-                stringStartDate=time
-                tv_start.text=time
-            }
-        }, TimeUtil.getCurrentDate(0),EndTime,TimeUtil.getCurrentDate(0))
-        dateSelectorStop=DateSelector(this,object :DateSelector.Companion.ResultHandler{
-            override fun handle(time: String) {
-                stringEndDate=time
-                tv_end.text=time
-            }
-        }, TimeUtil.getCurrentDate(0),EndTime,TimeUtil.getCurrentDate(0))
-        stringStartDate=TimeUtil.getCurrentDate(0)
-        stringEndDate=TimeUtil.getCurrentDate(1)
+        stringStartDate=TimeUtil.getDateByInterval(System.currentTimeMillis(),0)
+        stringEndDate=TimeUtil.getDateByInterval(System.currentTimeMillis(),1)
         tv_start.setOnClickListener {
+            dateSelectorStart=DateSelector(this,object :DateSelector.Companion.ResultHandler{
+                override fun handle(time: String) {
+                    stringStartDate=time
+                    tv_start.text=time
+                }
+            }, StartTime,EndTime, TimeUtil.format(Date(), "yyyy-MM-dd"))
             dateSelectorStart!!.show(selectDate = stringStartDate!!)
         }
         tv_end.setOnClickListener {
+            dateSelectorStop=DateSelector(this,object :DateSelector.Companion.ResultHandler{
+                override fun handle(time: String) {
+                    stringEndDate=time
+                    tv_end.text=time
+                }
+            }, StartTime,EndTime, TimeUtil.format(Date(), "yyyy-MM-dd"))
             dateSelectorStop!!.show(selectDate = stringEndDate!!)
         }
     }

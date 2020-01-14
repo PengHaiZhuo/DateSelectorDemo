@@ -34,6 +34,7 @@ class PickerView :View{
      * 控制是否首尾相接循环显示 默认为循环显示
      */
     private var loop = true
+    private var canScroll=false
     /**
      * 数据集
      */
@@ -140,8 +141,12 @@ class PickerView :View{
         }
     }
 
+    fun setCanScroll(canScroll: Boolean) {
+        this.canScroll = canScroll
+    }
+
     override fun dispatchTouchEvent(event: MotionEvent?): Boolean {
-        return super.dispatchTouchEvent(event)
+        return if(canScroll)super.dispatchTouchEvent(event)else false
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {

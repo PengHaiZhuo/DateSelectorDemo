@@ -148,24 +148,24 @@ class DateSelector {
                 yearList.add(index.toString())
             }
             for (index in startMonth..endMonth){
-                monthList.add(index.toString())
+                monthList.add(fomatTimeUnit(index))
             }
             for (index in startDay..endDay){
-                dayList.add(index.toString())
+                dayList.add(fomatTimeUnit(index))
             }
         }else if (spanMon){
             yearList.add(startYear.toString())
             for (index in startMonth..endMonth){
-                monthList.add(index.toString())
+                monthList.add(fomatTimeUnit(index))
             }
             for (index in startDay..endDay){
-                dayList.add(index.toString())
+                dayList.add(fomatTimeUnit(index))
             }
         }else if (spanDay){
             yearList.add(startYear.toString())
             monthList.add(startMonth.toString())
             for (index in startDay..endDay){
-                dayList.add(index.toString())
+                dayList.add(fomatTimeUnit(index))
             }
         }
         year_pv!!.setData(yearList)
@@ -174,6 +174,9 @@ class DateSelector {
         year_pv!!.setSelected(TimeUtil.getYear(TimeUtil.format(selectDate,FORMAT_DATE)))
         month_pv!!.setSelected(TimeUtil.getMonth(TimeUtil.format(selectDate,FORMAT_DATE)))
         day_pv!!.setSelected(TimeUtil.getDay(TimeUtil.format(selectDate,FORMAT_DATE)))
+        year_pv!!.setCanScroll(yearList.size > 1)
+        month_pv!!.setCanScroll(monthList.size > 1)
+        day_pv!!.setCanScroll(dayList.size > 1)
 
         year_pv!!.setOnSelectListener(object :PickerView.OnSelectListener{
             override fun onSelect(text: String) {

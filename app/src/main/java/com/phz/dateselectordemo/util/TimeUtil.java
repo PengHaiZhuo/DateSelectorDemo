@@ -3,7 +3,6 @@ package com.phz.dateselectordemo.util;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -80,14 +79,16 @@ public class TimeUtil {
         return DATE_FORMAT_DATE_HS.format(date);
     }
 
-    public static String getCurrentDate(int i) {
-        Calendar calendar = Calendar.getInstance();
-        Date today = new Date(System.currentTimeMillis());
-        calendar.setTime(today);
-        calendar.set(Calendar.DATE, calendar.get(Calendar.DATE) + i);
-        final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
-        Date date = calendar.getTime();
-        String time = dateFormat.format(date);
-        return time;
+    /**
+     *
+     * @param time 13位时间戳，java中是精确到毫秒
+     * @param date 可正可负，代表具体现在差几天
+     * @return
+     */
+    public static String getDateByInterval(long time,int date){
+        time+=date*86400000;
+        Date dateNew=new Date(time);
+        final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
+        return dateFormat.format(dateNew);
     }
 }

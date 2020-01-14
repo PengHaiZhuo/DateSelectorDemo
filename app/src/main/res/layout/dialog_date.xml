@@ -89,7 +89,7 @@
                     android:layout_width="0dp"
                     android:layout_height="160dp"
                     android:layout_weight="2"
-                    app:isLoop="false" />
+                    app:isLoop="true" />
 
                 <TextView
                     android:layout_width="0dp"
